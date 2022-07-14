@@ -26,14 +26,14 @@ response['v2_subscriptions'].each do |sub|
 
     p "***** USER ***************"
     p "User: #{owner}"
-    p "Remaining Credits: #{rc}"
+    p "Remaining Credits: #{remaining_credits}"
     p "***************************"
   elsif ENV['ORG_LOGIN'] && sub['owner']['@type'] == "organization" && sub['owner']['login'] == ENV['ORG_LOGIN']
     owner = sub['owner']['login']
     remaining_credits = sub['addons'][0]['current_usage']['remaining']
-    
+
     p "***** Organization ***************"
     p "Org: #{owner}"
-    p "Remaining Credits: #{rc}"
+    p "Remaining Credits: #{remaining_credits}"
   end
 end
