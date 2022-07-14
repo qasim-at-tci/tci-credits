@@ -18,6 +18,20 @@ response = HTTParty.get(
   :query => {format: :json},
   :headers => headers
 )
-remaining_credits = response['v2_subscriptions'][2]['addons'][0]['current_usage']['remaining']
 
-p "Remaining credits are #{remaining_credits}"
+response['v2_subscriptions'].each do |sub|
+  if ENV['USER_LOGIN'] && sub['owner']['@type'] == "user" && sub['owner']['login'] == ENV['USER_LOGIN']
+    owner = sub['owner']['login']
+    rc = sub['addons'][0]['current_usage']['remaining']
+    p "***** USER ***************"
+    p "User: #{owner}"
+    p "Remaining Credits: #{rc}"
+    p "***************************"
+  elsif ENV['ORG_LOGIN'] && sub['owner']['@type'] == "organization" && sub['owner']['login'] == ENV['ORG_LOGIN']
+    owner = sub['owner']['login']
+    rc = sub['addons'][0]['current_usage']['remaining']
+    p "***** Organization ***************"
+    p "Org: #{owner}"
+    p "Remaining Credits: #{rc}"
+  end
+end
