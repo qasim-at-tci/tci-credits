@@ -22,14 +22,16 @@ response = HTTParty.get(
 response['v2_subscriptions'].each do |sub|
   if ENV['USER_LOGIN'] && sub['owner']['@type'] == "user" && sub['owner']['login'] == ENV['USER_LOGIN']
     owner = sub['owner']['login']
-    rc = sub['addons'][0]['current_usage']['remaining']
+    remaining_credits = sub['addons'][0]['current_usage']['remaining']
+
     p "***** USER ***************"
     p "User: #{owner}"
     p "Remaining Credits: #{rc}"
     p "***************************"
   elsif ENV['ORG_LOGIN'] && sub['owner']['@type'] == "organization" && sub['owner']['login'] == ENV['ORG_LOGIN']
     owner = sub['owner']['login']
-    rc = sub['addons'][0]['current_usage']['remaining']
+    remaining_credits = sub['addons'][0]['current_usage']['remaining']
+    
     p "***** Organization ***************"
     p "Org: #{owner}"
     p "Remaining Credits: #{rc}"
