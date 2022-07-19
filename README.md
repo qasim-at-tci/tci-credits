@@ -1,3 +1,4 @@
+### *** Get the gem here: https://github.com/qasim-at-tci/credits ***
 # POC for getting remaining credits on a Travis CI Free plan
 
 # Development
